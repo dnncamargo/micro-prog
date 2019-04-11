@@ -26,21 +26,100 @@ int main(){
 }
 */
 
-
-int exec(int* regA, int* regB, int* result, int* oper) {
+/*
+ * Function: exec(int*, int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao na ULA.
+ *
+ *   @param regA Ponteiro para o registrador A (Acc)
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Vetor de Flags
+ *   @param oper Operacao selecionada
+ *   @returns int flag de execucao bem sucedida
+ */
+int exec(int* regA, int* regB, int* flags, int* oper) {
     int choosenoper = *oper;
-    int output;
+    int output = 1;
     switch (choosenoper) {
         case 1:
-            *result = add(regA, regB);
+            output = add(regA, regB, flags);
+            break;
+        case 2:
+            output = addi(regA, flags);
+            break;
+        case 3:
+            output = mult(regA, regB, flags);
+            break;
+        case 4:
+            output = and(regA, regB, flags);
+            break;
+        case 5:
+            output = or(regA, regB, flags);
+            break;
+        case 6:
+            output = not(regA, flags);
+            break;
+        case 7:
+            output = shr(regA, flags);
+            break;
+        case 8:
+            output = shl(regA, flags);
+            break;
     }
-    //printf("%d\n", result);
+    return output;
 }
 
-
-int add(int* regA, int* regB){
-    printf("%d %d\n", *regA, *regB );
+/*
+ * Function: add(int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de soma. O resultado e armazenado em regA e retorna o ponteiro do vetor de flags
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @returns int* vetor para ponteiro de flags
+ */
+int add(int* regA, int* regB, int* flags){
+    int output = 0;
     int result = *regA + *regB;
-    printf("%d\n", result);
-    return result;
+    if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
+        flags[0] = 1;
+        output = 1;
+    }
+    *regA = result;
+    return 1;
+}
+
+int addi(int* regA, int* flags){
+    int output = 0;
+    int result = *regA + 1;
+    if((*regA < 0 && result > 0) || (*regA > 0 && result < 0)){
+        flags[0] = 1;
+        output = 1;
+    }
+    *regA = result;
+    return output;
+}
+
+int mult(int* regA, int* regB, int* flags){
+
+}
+
+int and(int* regA, int* regB, int* flags){
+
+}
+
+int or(int* regA, int* regB, int* flags){
+
+}
+
+int not(int* regA, int* flags){
+
+}
+
+int shr(int* regA, int* flags){
+
+}
+
+int shl(int* regA, int* flags){
+    
 }

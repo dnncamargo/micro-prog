@@ -11,3 +11,7 @@ void store(int*, char);
 int load(char);
 
 void defoperation(int*);
+
+void printarray(int*, int);
+
+void resetarray(int*, int);
