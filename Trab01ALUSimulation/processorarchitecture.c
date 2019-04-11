@@ -37,6 +37,7 @@ void chooseopt(int opt, int* continuemenu) {
             break;
         case 7:
             exec(&regA, &regB, &result, &oper);
+            regA = result;
             break;
         case 8:
             *continuemenu = 0;

@@ -32,13 +32,15 @@ int exec(int* regA, int* regB, int* result, int* oper) {
     int output;
     switch (choosenoper) {
         case 1:
-            output = add(regA, regB);
+            *result = add(regA, regB);
     }
-    printf("%d\n", result);
+    //printf("%d\n", result);
 }
 
 
 int add(int* regA, int* regB){
+    printf("%d %d\n", *regA, *regB );
     int result = *regA + *regB;
+    printf("%d\n", result);
     return result;
 }
