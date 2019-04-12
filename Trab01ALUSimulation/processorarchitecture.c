@@ -41,6 +41,7 @@ void chooseopt(int opt, int* continuemenu) {
         case 8:
             *continuemenu = 0;
             printf("O programa sera encerrado.\n"); break;
+        case 0:break;
         default:
             printf("A opcao digitada nao corresponde a nenhuma acao.\n"); break;
     }
@@ -48,10 +49,7 @@ void chooseopt(int opt, int* continuemenu) {
 
 void store(int* reg, char identreg) {
     printf("Valor do registrador %c: ", identreg);
-    int value;
-    scanf("%d", &value);
-    *reg = value;
-    printf("\n");
+    scanf("%d", reg);
 }
 
 int load(char identreg) {
@@ -70,16 +68,18 @@ int load(char identreg) {
 void defoperation(int* oper) {
     system("cls");
     printf("Operacoes:\n");
-    printf("   1. Soma (add)\n");
-    printf("   2. Soma imediato (addi)\n");
-    printf("   3. Multiplicacao (mult)\n");
-    printf("   4. E (and)\n");
-    printf("   5. OU (or)\n");
-    printf("   6. NAO (not)\n");
-    printf("   7. Deslocamento a direita (shr)\n");
-    printf("   8. Deslocamento a esquerda (shl)\n");
-
-    *oper = scanf("%d", oper);
+    printf("   0. Soma (add)\n");
+    printf("   1. Soma imediato (addi)\n");
+    printf("   2. Multiplicacao (mult)\n");
+    printf("   3. Divisao (div)\n");
+    printf("   4. Modulo (mod)\n");
+    printf("   5. E (and)\n");
+    printf("   6. OU (or)\n");
+    printf("   7. NAO (not)\n");
+    printf("   8. Deslocamento a direita (shr)\n");
+    printf("   9. Deslocamento a esquerda (shl)\n");
+    printf("Operacao :> ");
+    scanf("%d", oper);
 }
 
 void printarray(int* array, int len) {
@@ -92,6 +92,6 @@ void printarray(int* array, int len) {
 void resetarray(int* array, int len){
     int i;
     for(i = 0; i < len; i++) {
-        *(array[i]) = 0;
+        array[i] = 0;
     }
 }

@@ -9,6 +9,10 @@ int addi(int*, int*);
 
 int mult(int*, int*, int*);
 
+int quoc(int*, int*, int*);
+
+int mod(int*, int*, int*);
+
 int and(int*, int*, int*);
 
 int or(int*, int*, int*);

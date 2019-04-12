@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include <limits.h>
 #include "alusimulation.h"
 
 /* Uma unidade logica e aritmética
@@ -8,23 +9,6 @@ Uma ULA recebe como entrada um conjunto de operadores e realiza sobre eles uma d
 escolhida através de uma entradade controle.
 Retorna, na saída, o resultado das operações e um conjunto de bits de ​status​, comumente chamados de ​flags​. */
 
-/*
-int* halfadder(int* a, int* b, int* cout){
-    return a;
-}
-
-int main(){
-    int a = 0;
-    int b = 0;
-    int out;
-    int c;
-    out = !a*b|a*!b;
-    printf("%d\n", out);
-    int *ap = &a;
-
-
-}
-*/
 
 /*
  * Function: exec(int*, int*, int*, int*)
@@ -39,30 +23,41 @@ int main(){
  */
 int exec(int* regA, int* regB, int* flags, int* oper) {
     int choosenoper = *oper;
-    int output = 1;
+    int output = 0;
     switch (choosenoper) {
-        case 1:
+        case 0:
+        printf("Add\n");
             output = add(regA, regB, flags);
             break;
-        case 2:
+        case 1:
+        printf("Addi\n");
             output = addi(regA, flags);
             break;
-        case 3:
+        case 2:
+        printf("Mult\n");
             output = mult(regA, regB, flags);
             break;
+        case 3:
+        printf("Div\n");
+            output = quoc(regA, regB, flags);
+            break;
         case 4:
-            output = and(regA, regB, flags);
+        printf("Mod\n");
+            output = mod(regA, regB, flags);
             break;
         case 5:
-            output = or(regA, regB, flags);
+            output = and(regA, regB, flags);
             break;
         case 6:
-            output = not(regA, flags);
+            output = or(regA, regB, flags);
             break;
         case 7:
-            output = shr(regA, flags);
+            output = not(regA, flags);
             break;
         case 8:
+            output = shr(regA, flags);
+            break;
+        case 9:
             output = shl(regA, flags);
             break;
     }
@@ -86,13 +81,20 @@ int add(int* regA, int* regB, int* flags){
         output = 1;
     }
     *regA = result;
-    return 1;
+    return output;
 }
 
 int addi(int* regA, int* flags){
     int output = 0;
-    int result = *regA + 1;
-    if((*regA < 0 && result > 0) || (*regA > 0 && result < 0)){
+    int i = 1;
+    output = add(regA, &i, flags);
+    return output;
+}
+
+int mult(int* regA, int* regB, int* flags){
+    int output = 0;
+    int result = *regA * *regB;
+    if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
         flags[0] = 1;
         output = 1;
     }
@@ -100,8 +102,42 @@ int addi(int* regA, int* flags){
     return output;
 }
 
-int mult(int* regA, int* regB, int* flags){
+int quoc(int* regA, int* regB, int* flags){
+    int output = 0;
+    if(*regA == INT_MIN && *regB == -1){
+        flags[0] = 1;
+        output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
+    } else {
+        if(*regB == 0){
+            flags[1] = 1;
+            output = 1;
+            printf("Erro: Divisao por zero. (verif. flags)\n");
+        } else {
+            int result = *regA / *regB;
+            *regA = result;
+        }
+    }
+    return output;
+}
 
+int mod(int* regA, int* regB, int* flags){
+    int output = 0;
+    if(*regA == INT_MIN && *regB == -1){
+        flags[0] = 1;
+        output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
+    } else {
+        if(*regB == 0){
+            flags[1] = 1;
+            output = 1;
+            printf("Erro: Divisao por zero. (verif. flags)\n");
+        } else {
+            int result = *regA % *regB;
+            *regA = result;
+        }
+    }
+    return output;
 }
 
 int and(int* regA, int* regB, int* flags){
@@ -121,5 +157,5 @@ int shr(int* regA, int* flags){
 }
 
 int shl(int* regA, int* flags){
-    
+
 }
