@@ -7,12 +7,18 @@ int main(int argc, char *argv[]) {
 
     int opt;
     int menuloop;
+    printf("PRESSIONE 0 PARA MENU\n");
 
     menuloop = 1;
     while (menuloop) {
-        menu();
+        printf(":> ");
+
         scanf("%d", &opt);
-        system("cls");
+        
+
+        if(!opt)
+            menu();
+
         chooseopt(opt, &menuloop);
     }
     return 0;
@@ -31,3 +37,9 @@ void menu() {
     printf("   8.  Sair\n");
 
 }
+
+/*
+int* halfadder(int* a, int* b, int* cout){
+    return !a*b|a*!b;;
+}
+*/
