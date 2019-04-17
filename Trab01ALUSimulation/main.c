@@ -4,7 +4,6 @@
 void menu(void);
 
 int main(int argc, char *argv[]) {
-
     int opt;
     int menuloop;
     printf("PRESSIONE 0 PARA MENU\n");
@@ -12,9 +11,7 @@ int main(int argc, char *argv[]) {
     menuloop = 1;
     while (menuloop) {
         printf(":> ");
-
         scanf("%d", &opt);
-        
 
         if(!opt)
             menu();

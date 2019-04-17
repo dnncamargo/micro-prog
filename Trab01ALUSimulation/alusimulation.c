@@ -79,6 +79,7 @@ int add(int* regA, int* regB, int* flags){
     if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
         flags[0] = 1;
         output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
     }
     *regA = result;
     return output;
@@ -97,6 +98,7 @@ int mult(int* regA, int* regB, int* flags){
     if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
         flags[0] = 1;
         output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
     }
     *regA = result;
     return output;
@@ -141,21 +143,66 @@ int mod(int* regA, int* regB, int* flags){
 }
 
 int and(int* regA, int* regB, int* flags){
-
+    int output = 0;
+    int result = *regA & *regB;
+    if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
+        flags[0] = 1;
+        output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
+    }
+    *regA = result;
+    return output;
 }
 
 int or(int* regA, int* regB, int* flags){
-
+    int output = 0;
+    int result = *regA | *regB;
+    if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
+        flags[0] = 1;
+        output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
+    }
+    *regA = result;
+    return output;
 }
 
 int not(int* regA, int* flags){
-
+    int output = 0;
+    if(*regA == INT_MIN){
+        flags[0] = 1;
+        output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
+    } else {
+        int result = *regA;
+        *regA = -result;
+    }
+    return output;
 }
 
-int shr(int* regA, int* flags){
-
+int shr(int* regA, int* regB, int* flags){
+    int output = 0;
+    int result = *regA << *regB;
+    if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
+        flags[0] = 1;
+        flags[2] = 0;
+        output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
+    }
+    *regA = result;
+    flags[2] = 1;
+    return output;
 }
 
-int shl(int* regA, int* flags){
-
+int shl(int* regA, int* regB, int* flags){
+    int output = 0;
+    int result = *regA >> *regB;
+    if((*regA < 0 && *regB < 0 && result > 0) || (*regA > 0 && *regB > 0 && result < 0)){
+        flags[0] = 1;
+        flags[2] = 0;
+        output = 1;
+        printf("Erro: Estouro de memoria. (verif. flags)\n");
+    }
+    *regA = result;
+    flags[2] = 1;
+    return output;
 }

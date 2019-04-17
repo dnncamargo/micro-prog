@@ -19,6 +19,6 @@ int or(int*, int*, int*);
 
 int not(int*, int*);
 
-int shr(int*, int*);
+int shr(int*, int*, int*);
 
-int shl(int*, int*);
+int shl(int*, int*, int*);
