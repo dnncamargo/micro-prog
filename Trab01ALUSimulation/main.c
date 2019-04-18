@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "baseconv.h"
 //#include "processorarchitecture.h"
 
 #define BINMAX 32
@@ -11,22 +12,45 @@ void menu(void);
 
 int main(int argc, char *argv[]) {
 
+    char strbin[BINMAX];
+    char strdec[INTMAX];
+    fgets(strbin, sizeof(strbin), stdin);
+
+    int decimal;
+    int* pd = &decimal;
+    strcpy(strdec , strtoi(strbin, pd, 2));
+    printf("%d\n", decimal);
+    printf("%s\n", strdec);
+
+    int a=54325;
+    char buffer[20];
+    itoa(a,buffer,2);   // here 2 means binary
+    printf("Binary value = %s\n", buffer);
+
+    itoa(a,buffer,10);   // here 10 means decimal
+    printf("Decimal value = %s\n", buffer);
+
+    itoa(a,buffer,16);   // here 16 means Hexadecimal
+    printf("Hexadecimal value = %s\n", buffer);
+
     printf("00:: ");
     char strbin0[BINMAX];
     char strdec0[INTMAX];
     int bin0;
     int dec0 = 0;
     fgets(strbin0, sizeof(strbin0), stdin);
+    int i;
+    itoa(i, strbin0, 10);
+    printf("%d\n", i);
 
     bin0 = atoi(strbin0);
     printf("String value = %s. Int value = %d\n", strbin0, bin0);
-    int i;
     for(i = 0; bin0 > 0; i++)
     {
         dec0 = dec0 + pow(2, i) * (bin0 % 10);
         bin0 = bin0 / 10;
     }
-    printf("\nDecimal Equivalent of Binary Number: \t %d\n", dec);
+    printf("\nDecimal Equivalent of Binary Number: \t %d\n", dec0);
 
     printf("01:: ");
     char strbin1[BINMAX];
@@ -44,7 +68,7 @@ int main(int argc, char *argv[]) {
     }
     printf("\nDecimal Equivalent of Binary Number: \t %d\n", dec1);
 
-    int sum = !bin0*bin1|bin0*!bin1;
+    //int sum = !bin0*bin1|bin0*!bin1;
 
     int opt;
     int menuloop;
