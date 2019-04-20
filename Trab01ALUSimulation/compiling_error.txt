@@ -1,0 +1,10 @@
+C:\Users\suportefkrj\Documents\GitHub\microprog\Trab01ALUSimulation\main.c: In function 'main':
+C:\Users\suportefkrj\Documents\GitHub\microprog\Trab01ALUSimulation\main.c:21:21: warning: passing argument 2 of 'strcpy' makes pointer from integer without a cast [-Wint-conversion]
+     strcpy(strdec , strtoi(strbin, pd, 2));
+                     ^~~~~~~~~~~~~~~~~~~~~
+In file included from C:\Users\suportefkrj\Documents\GitHub\microprog\Trab01ALUSimulation\main.c:3:
+c:\mingw\include\string.h:79:40: note: expected 'const char *' but argument is of type 'int'
+ _CRTIMP __cdecl __MINGW_NOTHROW  char *strcpy (char *, const char *);
+                                        ^~~~~~
+c:/mingw/bin/../lib/gcc/mingw32/8.2.0/../../../../mingw32/bin/ld.exe: C:\Users\SUPORT~1\AppData\Local\Temp\ccqXKtlB.o:main.c:(.text+0x5d): undefined reference to `strtoi'
+collect2.exe: error: ld returned 1 exit status
