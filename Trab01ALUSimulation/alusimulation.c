@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 #include "alusimulation.h"
 
@@ -55,10 +55,10 @@ int exec(int* regA, int* regB, int* flags, int* oper) {
             output = not(regA, flags);
             break;
         case 8:
-            output = shr(regA, flags);
+            output = shr(regA, regB, flags);
             break;
         case 9:
-            output = shl(regA, flags);
+            output = shl(regA, regB, flags);
             break;
     }
     return output;

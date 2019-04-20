@@ -6,9 +6,9 @@
 
 void chooseopt(int, int*);
 
-void store(int*, char);
+void store(char, int*, char*);
 
-int load(char);
+int load(char, int*, char*);
 
 void defoperation(int*);
 

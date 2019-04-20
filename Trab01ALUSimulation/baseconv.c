@@ -19,7 +19,7 @@ int isbin(int bin) {
 /* Funcao stroi
  * Recebe uma sequencia de numeros binarios em string e converte para decimal inteiro
  */
-const char * strtoi(char * strbin, int * val, int base) {
+char * strtoi(char * strbin, int * val, int base) {
     if(strbin != NULL) {
         int binbuffer = atoi(strbin);
         int dec = 0;
@@ -30,7 +30,7 @@ const char * strtoi(char * strbin, int * val, int base) {
             binbuffer = binbuffer / 10;
         }
         *val = dec;
-        char* strdec = malloc (sizeof(INTMAX));
+        char* strdec = malloc (sizeof(BINMAX));
         sprintf(strdec, "%d", dec);
         return strdec;
     } else {
@@ -53,8 +53,7 @@ char* reverse(char *buffer, int i, int j)
 }
 
 // Iterative function to implement itoa() function in C
-char* baseconv(int value, char* buffer, int base)
-{
+char* itostr(int value, char* buffer, int base){
 	// invalid input
 	if (base < 2 || base > 32)
 		return buffer;
@@ -63,8 +62,7 @@ char* baseconv(int value, char* buffer, int base)
 	int n = abs(value);
 
 	int i = 0;
-	while (n)
-	{
+	while (n)	{
 		int r = n % base;
 
 		if (r >= 10)
