@@ -26,23 +26,18 @@ int exec(int* regA, int* regB, int* flags, int* oper) {
     int output = 0;
     switch (choosenoper) {
         case 0:
-        printf("Add\n");
             output = add(regA, regB, flags);
             break;
         case 1:
-        printf("Addi\n");
             output = addi(regA, flags);
             break;
         case 2:
-        printf("Mult\n");
             output = mult(regA, regB, flags);
             break;
         case 3:
-        printf("Div\n");
             output = quoc(regA, regB, flags);
             break;
         case 4:
-        printf("Mod\n");
             output = mod(regA, regB, flags);
             break;
         case 5:
@@ -65,13 +60,14 @@ int exec(int* regA, int* regB, int* flags, int* oper) {
 }
 
 /*
- * Function: add(int*, int*)
+ * Function: add(int*, int*, int*)
  * -----------------------------------
- *   Executa a operacao de soma. O resultado e armazenado em regA e retorna o ponteiro do vetor de flags
+ *   Executa a operacao de soma. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
  *
  *   @param regA Ponteiro para o registrador A
  *   @param regB Ponteiro para o registrador B
- *   @returns int* vetor para ponteiro de flags
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
  */
 int add(int* regA, int* regB, int* flags){
     int output = 0;
@@ -85,6 +81,15 @@ int add(int* regA, int* regB, int* flags){
     return output;
 }
 
+/*
+ * Function: addi(int*)
+ * -----------------------------------
+ *   Executa a operacao de incremento. O resultado e armazenado em regA e retorna o ponteiro do vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int addi(int* regA, int* flags){
     int output = 0;
     int i = 1;
@@ -92,6 +97,16 @@ int addi(int* regA, int* flags){
     return output;
 }
 
+/*
+ * Function: mult(int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de multiplicacao. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int mult(int* regA, int* regB, int* flags){
     int output = 0;
     int result = *regA * *regB;
@@ -104,6 +119,16 @@ int mult(int* regA, int* regB, int* flags){
     return output;
 }
 
+/*
+ * Function: quoc(int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de divisao. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int quoc(int* regA, int* regB, int* flags){
     int output = 0;
     if(*regA == INT_MIN && *regB == -1){
@@ -123,6 +148,16 @@ int quoc(int* regA, int* regB, int* flags){
     return output;
 }
 
+/*
+ * Function: mod(int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de resto da divisao. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int mod(int* regA, int* regB, int* flags){
     int output = 0;
     if(*regA == INT_MIN && *regB == -1){
@@ -142,6 +177,16 @@ int mod(int* regA, int* regB, int* flags){
     return output;
 }
 
+/*
+ * Function: and(int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de e binario. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int and(int* regA, int* regB, int* flags){
     int output = 0;
     int result = *regA & *regB;
@@ -154,6 +199,16 @@ int and(int* regA, int* regB, int* flags){
     return output;
 }
 
+/*
+ * Function: or(int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de ou binario. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int or(int* regA, int* regB, int* flags){
     int output = 0;
     int result = *regA | *regB;
@@ -166,6 +221,16 @@ int or(int* regA, int* regB, int* flags){
     return output;
 }
 
+/*
+ * Function: not(int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de not binario. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int not(int* regA, int* flags){
     int output = 0;
     if(*regA == INT_MIN){
@@ -174,11 +239,21 @@ int not(int* regA, int* flags){
         printf("Erro: Estouro de memoria. (verif. flags)\n");
     } else {
         int result = *regA;
-        *regA = -result;
+        *regA = !result;
     }
     return output;
 }
 
+/*
+ * Function: shr(int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de deslocamento a direita binario. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int shr(int* regA, int* regB, int* flags){
     int output = 0;
     int result = *regA << *regB;
@@ -193,6 +268,16 @@ int shr(int* regA, int* regB, int* flags){
     return output;
 }
 
+/*
+ * Function: shr(int*, int*, int*)
+ * -----------------------------------
+ *   Executa a operacao de deslocamento a esquerda binario. O resultado e armazenado em regA e armazena valores no vetor de flags se houver erro
+ *
+ *   @param regA Ponteiro para o registrador A
+ *   @param regB Ponteiro para o registrador B
+ *   @param flags Ponteiro para o vetor de flags
+ *   @returns int para sinalizar evento
+ */
 int shl(int* regA, int* regB, int* flags){
     int output = 0;
     int result = *regA >> *regB;

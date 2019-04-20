@@ -3,35 +3,32 @@
 #include "processorarchitecture.h"
 #include "alusimulation.h"
 #include "baseconv.h"
-#include "sys.h"
-
-#define BINBUFFER 32
 
 int oper;
 int regA;
 int regB;
-char strbin[BINBUFFER];
 
 /*  FLAG 1: OVERFLOW
     FLAG 2: DIV/0
     FLAG 3: SHR
     FLAG 4: SHL
 */
+
 int flags[FLAGLEN];
 
 void chooseopt(int opt, int* continuemenu) {
     switch (opt) {
         case 1:
-            store('A', &regA, strbin);
+            store('A', &regA);
             break;
         case 2:
-            store('B', &regB, strbin);
+            store('B', &regB);
             break;
         case 3:
-            load('A', &regA, strbin);
+            load('A', &regA);
             break;
         case 4:
-            load('B', &regB, strbin);
+            load('B', &regB);
             break;
         case 5:
             printarray(flags, FLAGLEN);
@@ -52,16 +49,15 @@ void chooseopt(int opt, int* continuemenu) {
     }
 }
 
-void store(char identreg, int* reg, char * strbin) {
-    clbuff();
+void store(char identreg, int* reg) {
+    long long l;
     printf("Novo valor para o registrador %c: ", identreg);
-    fgets(strbin, sizeof(BINBUFFER), stdin);
-    strtoi(strbin, reg, 2);
+    scanf("%lld", &l);
+    *reg = lbintoi(l);
     printf("Adicionado o valor %d ao registrador %c\n", *reg, identreg);
-    clbuff();
 }
 
-int load(char identreg, int* reg, char * strbin) {
+int load(char identreg, int* reg) {
     printf("Conteudo do registrador %c: ", identreg);
     int content;
     switch (identreg) {
@@ -70,12 +66,14 @@ int load(char identreg, int* reg, char * strbin) {
         case 'B':
             content = regB; break;
     }
-    printf("%d\n", content);
+
+    printf("%lld (%d em decimal)\n", itolbin(content), content);
     return content;
 }
 
 void defoperation(int* oper) {
-    clscr();
+    system("cls");
+    system("clear");
     printf("Operacoes:\n");
     printf("   0. Soma (add)\n");
     printf("   1. Soma imediato (addi)\n");

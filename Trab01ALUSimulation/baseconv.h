@@ -3,15 +3,6 @@
 #include <string.h>
 #include <math.h>
 
-#define BINMAX 32
-#define INTMAX 10
+long long itolbin(int);
 
-int isbin(int);
-
-char * strtoi(char *, int*, int);
-
-void swap(char *, char *);
-
-char* reverse(char *, int, int);
-
-char* itostr(int, char*, int);
+int lbintoi(long long);
