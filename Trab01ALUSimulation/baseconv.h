@@ -8,4 +8,10 @@
 
 int isbin(int);
 
-int strtoi(char *, int*, int);
+const char * strtoi(char *, int*, int);
+
+void swap(char *, char *);
+
+char* reverse(char *, int, int);
+
+char* baseconv(int, char*, int);
