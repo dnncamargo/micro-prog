@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "processorarchitecture.h"
 
+int halfadder(int*, int*, int*);
+
+int fulladder(int*, int*, int*, int*);
+
 void menu(void);
 
 int main(int argc, char *argv[]) {
